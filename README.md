@@ -28,10 +28,10 @@ In the property industry, accurate property valuation is crucial for intelligent
 ## Preprocessing and Machine Learning Analysis
 
 ### Data Preprocessing
+- Correlation tests to determine relationships between property attributes and prices.
+- Calculating correlations to determine the significant features that affect the diverse property prices in Perth
 - Handling Missing Values and Outliers
 - Features Scaling and Encoding
-- Correlation tests to determine relationships between property attributes and prices.
-- Calculating correlations to measure attribute-property relationships.
 
 ### Machine Learning Application
 - Application of supervised machine learning regression methods for predicting property prices.
