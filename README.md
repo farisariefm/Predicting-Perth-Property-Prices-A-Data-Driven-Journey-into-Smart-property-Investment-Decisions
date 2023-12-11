@@ -1,12 +1,14 @@
-# Predicting Perth House Prices
-
+# Predicting Perth Property Prices: A Data-Driven Journey into Smart property Investment Decisions
 ## Overview
 
 This repository contains the code and analysis for predicting property prices in the Perth area, Western Australia. 
 The primary goal is to develop a predictive model that provides estimates for property prices based on various influential factors. 
 The insights from this project aim to facilitate informed decision-making in property investment and sales within the region.
 
+Dataset Source : [Kaggle](https://www.kaggle.com/datasets/syuzai/perth-house-prices)
+
 ## Problem Statements
+In the property industry, accurate property valuation is crucial for intelligent decision-making. Therefore, this project aims to develop a property price prediction model that can estimate property values in Perth, Western Australia. The primary goal of this research is to enable stakeholders in the property industry to make more informed decisions for maximizing property investment value in the Perth region through accurate property price predictions.
 
 ### Focused Approach
 - Identify factors influencing property prices in Perth.
@@ -18,14 +20,16 @@ The insights from this project aim to facilitate informed decision-making in pro
 ### Data Identification
 - Identifying relevant attributes like bedrooms, bathrooms, land area, built year, distance to city center, nearest station, and school proximity.
 
-### Preprocessing
-- Handling missing values and converting data types as necessary.
-- Conducting descriptive statistics for relevant property attributes.
-- Identifying and handling outliers in the dataset.
+### Exploratory Data Analysis
+- Initial Data Understandings
+- Identifying missing values and Outliers
+- Conducting descriptive statistics analytic for relevant property attributes.
 
-## Statistical and Machine Learning Analysis
+## Preprocessing and Machine Learning Analysis
 
-### Inferential Statistics
+### Data Preprocessing
+- Handling Missing Values and Outliers
+- Features Scaling and Encoding
 - Correlation tests to determine relationships between property attributes and prices.
 - Calculating correlations to measure attribute-property relationships.
 
