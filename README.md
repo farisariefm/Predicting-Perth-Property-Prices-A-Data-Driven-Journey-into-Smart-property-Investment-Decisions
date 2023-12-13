@@ -6,6 +6,7 @@ The primary goal is to develop a predictive model that provides estimates for pr
 The insights from this project aim to facilitate informed decision-making in property investment and sales within the region.
 
 Dataset Source : [Kaggle](https://www.kaggle.com/datasets/syuzai/perth-house-prices)
+
 Deployment of the Prediction Model : [Huggingface](https://huggingface.co/spaces/farisariefm/Predicting-Perth-Property-Prices)
 
 ## Problem Statements
