@@ -1,51 +1,129 @@
 '''
-===============================================
+===============================================================
 
-Faris Arief Mawardi
+Predicting Perth Property Prices: A Data-Driven Journey into Smart property Investment Decisions
 
-Dataset : perth_houses.csv
+Prepared by: Faris Arief Mawardi
 
-Objective : Membuat homepage deployment dari model prediksi yang telah dibuat
+Dataset: perth_houses.csv
+
+Objective: Creating the homepage of the model deployment
 
 '''
-
+# Import the necessary library
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 
-# Membuat function untuk menghubungkan eda.py dengan app.py
+# Initiating the function to connect the homepage and the EDA
 def run():
     st.title('Welcome to Exploratory Data Analysis')
-# Memanggil data csv 
+# Loading the Dataset
     df= pd.read_csv('perth_houses.csv')
-# Menampilkan Review Dataset (10 teratas dan terbawah)
+# Displaying the head and tail of the dataset
     st.header ('Dataset Review')    
-# Menampilkan 10 data teratas
-    with st.expander('**Menampilkan 10 Data Teratas pada Dataset**'):
+# Print the first 10 entries of the dataset
+    with st.expander('**First 10 entries of the dataset**'):
         st.table(df.head(10))
-# Menampilkan 10 data terbawah
-    with st.expander('**Menampilkan 10 Data Terbawah pada Dataset**'):
+# Print the last 10 entries of the dataset
+    with st.expander('**Last 10 entries of the dataset**'):
         st.table(df.tail(10))
-# Menampilkan header untuk penjelasan fitur (kolom-kolom) pada dataset
-    st.header('Penjelasan Fitur Dataset')
-    with st.expander('**Penjelasan Fitur Dataset**'):
-        st.markdown('Dataset ini memiliki 19 kolom, dan berikut adalah penjelasan singkat tentang masing-masing kolom:\n1. **ADDRESS**: Alamat properti, menunjukkan alamat fisik properti yang ada di wilayah Perth.\n2. **SUBURB**: Suburb atau kawasan di wilayah Perth tempat properti berada.\n3. **PRICE**: Harga properti, merupakan variabel target yang akan diprediksi oleh model.\n4. **BEDROOMS**: Jumlah kamar tidur di properti.\n5. **BATHROOMS**: Jumlah kamar mandi di properti.\n6. **GARAGE**: Jumlah Garasi / kapasitas kendaraan yang dapat dimasukkan ke dalam garasi \n7. **LAND_AREA**: Luas tanah properti dalam satuan meter persegi.\n8. **FLOOR_AREA**: Luas bangunan properti dalam satuan meter persegi.\n9. **BUILD_YEAR**: Tahun pembangunan properti.\n10. **CBD_DIST**: Jarak properti ke pusat kota (Central Business District) dalam meter (diasumsikan).\n11. **NEAREST_STN**: Nama stasiun kereta terdekat dari properti.\n12. **NEAREST_STN_DIST**: Jarak properti ke stasiun kereta terdekat dalam meter (diasumsikan).\n13. **DATE_SOLD**: Tanggal penjualan properti.\n14. **POSTCODE**: Kode pos wilayah properti.\n15. **LATITUDE**: Koordinat lintang properti.\n16. **LONGITUDE**: Koordinat bujur properti.\n17. **NEAREST_SCH**: Nama sekolah terdekat dari properti.\n18. **NEAREST_SCH_DIST**: Jarak properti ke sekolah terdekat dalam meter (diasumsikan).\n19. **NEAREST_SCH_RANK**: Peringkat sekolah terdekat.')
+# Initiating the header of the features explanation section
+    st.header('Features of the dataset')
+    with st.expander('**Features Explanations :**'):
+        st.markdown('''
+**Insights :**
+
+The dataset used in this study comprises property data from the Perth area, Western Australia. This dataset includes various attributes associated with properties, such as the number of bedrooms, bathrooms, land size, floor area, build year, distance to the city center, proximity to the nearest train station and school, property price, and more. The dataset consists of 33,656 entries and 19 columns (attributes).
+
+**Relevance to the Research Objectives:**
+
+1. **Building a Model to Predict Property Prices in the Perth Area:** This dataset serves as the foundation for developing a property price prediction model. Relevant attributes like the number of bedrooms, land size, among others, will be used as features to train the model. Property price will be the target variable to predict.
+  
+2. **Analyzing Factors Influencing Property Prices:** The dataset encompasses various attributes that can serve as factors influencing property prices. For instance, analyzing the extent to which the number of bedrooms or build year impacts property prices can help identify the most significant attributes affecting property prices in the Perth area.
+
+**Dataset Attribute Information:**
+
+The dataset consists of 19 columns, and here is a brief explanation of each column:
+1. **ADDRESS**: Property address, indicating the physical address of the property in the Perth area.
+2. **SUBURB**: Suburb or area in the Perth region where the property is located.
+3. **PRICE**: Property price, which is the target variable to be predicted by the model.
+4. **BEDROOMS**: Number of bedrooms in the property.
+5. **BATHROOMS**: Number of bathrooms in the property.
+6. **GARAGE**: Number of garages/vehicle capacity that can be accommodated in the garage.
+7. **LAND_AREA**: Land area of the property in square meters.
+8. **FLOOR_AREA**: Floor area of the property in square meters.
+9. **BUILD_YEAR**: Year of property construction.
+10. **CBD_DIST**: Distance of the property to the Central Business District in meters (assumed).
+11. **NEAREST_STN**: Name of the nearest train station from the property.
+12. **NEAREST_STN_DIST**: Distance of the property to the nearest train station in meters (assumed).
+13. **DATE_SOLD**: Date of property sale.
+14. **POSTCODE**: Property area postcode.
+15. **LATITUDE**: Latitude coordinates of the property.
+16. **LONGITUDE**: Longitude coordinates of the property.
+17. **NEAREST_SCH**: Name of the nearest school from the property.
+18. **NEAREST_SCH_DIST**: Distance of the property to the nearest school in meters (assumed).
+19. **NEAREST_SCH_RANK**: Rank of the nearest school.
+
+**Data Modifications**
+
+1. **BUILD_YEAR**: This column needs to be converted to numeric data type (integer) to facilitate analysis of the impact of the property's build year on its price.
+2. **DATE_SOLD**: This column needs to be converted to a datetime data type.
+
+Apart from these two columns, the remaining columns are already in the appropriate data format.''')
 # Menampilkan hasil uji distribusi data
     st.header('Exploratory Data Analysis Results')
-    with st.expander ('**Analisis Distribusi Data**'):
-        st.markdown('**Analisis Distribusi Data**')
+    with st.expander ('**Data Distributions Analysis**'):
+        st.markdown('**Data Distributions Analysis**')
         st.image('analisis_distribusi.png')
-        st.markdown ('**Insight :**')
-        st.markdown("Dari analisis statistik deskriptif, skewness, kurtosis, serta visualisasi distribusi data, dapat disimpulkan bahwa :\n1. Kolom 'PRICE' menunjukkan distribusi data yang condong ke kanan (positively skewed) dengan skewness sekitar 1,78, mengindikasikan adanya rumah-rumah dengan harga yang sangat tinggi.\n2. Kolom 'BEDROOMS' memiliki distribusi data yang lebih merata dengan mean sekitar 3,66 dan skewness mendekati 0, menunjukkan bahwa jumlah kamar tidur di rumah memiliki distribusi yang lebih merata.\n3. Kolom 'BATHROOMS' juga memiliki distribusi data yang lebih merata dengan skewness mendekati 0, menunjukkan bahwa jumlah kamar mandi di rumah cenderung terdistribusi secara merata.\n4. Kolom 'GARAGE' memiliki skewness yang sangat tinggi, sekitar 16,28. Hal ini mengindikasikan adanya banyak outliers dengan jumlah garasi yang sangat tinggi.\n5. Kolom 'LAND_AREA' memiliki distribusi data dengan mean sekitar 2740.64 dan skewness sekitar 33,76. Hal ini mengindikasikan adanya beberapa rumah dengan lahan yang sangat besar.\n6. Kolom 'FLOOR_AREA' memiliki distribusi data yang lebih merata dengan skewness mendekati 0 (1.35), menunjukkan bahwa luas lantai rumah terdistribusi dengan relatif lebih merata.\n7. Kolom 'BUILD_YEAR' memiliki skewness negatif, sekitar -1.39, mengindikasikan adanya beberapa tahun pembangunan yang lebih tua.\n8. Kolom 'CBD_DIST' memiliki skewness sekitar 0.88, menunjukkan distribusi data yang lebih merata untuk jarak ke pusat kota.\n9. Kolom 'NEAREST_STN_DIST' memiliki skewness sekitar 2.45, menunjukkan adanya beberapa jarak ke stasiun yang sangat jauh.\n10. Kolom 'POSTCODE' memiliki skewness sekitar 2.07, menunjukkan adanya beberapa kode pos yang jauh dari rata-rata.\n11. Kolom 'LATITUDE' memiliki skewness sekitar -0.38 dan kurtosis sekitar -0.11, menunjukkan distribusi data yang cenderung simetris.\n12. Kolom 'LONGITUDE' memiliki skewness sekitar 0.63 dan kurtosis sekitar 0.05, menunjukkan distribusi data yang cenderung simetris.\n13. Kolom 'NEAREST_SCH_DIST' memiliki skewness sekitar 3.75 dan kurtosis sekitar 20.03, menunjukkan adanya beberapa jarak ke sekolah yang sangat jauh.\n14. Kolom 'NEAREST_SCH_RANK' memiliki skewness sekitar 0.04 dan kurtosis sekitar -1.22, menunjukkan distribusi yang cenderung simetris.\nDari insight tersebut, kita dapat melihat perbedaan dan persamaan dalam karakteristik distribusi data, skewness, kurtosis, dan indikasi outliers. Data pertama (data statistik deskriptif) memiliki beberapa atribut dengan distribusi yang lebih merata, sedangkan pada data kedua (skewness dan kurtosis) menunjukkan beberapa atribut dengan distribusi yang memiliki kecondongan. Selain itu, pada data skewness dan kurtosis juga mengindikasikan adanya beberapa atribut dengan nilai skewness dan kurtosis yang lebih tinggi, menunjukkan adanya ekor yang lebih panjang pada distribusi data. Selanjutnya, setelah adanya indikasi outliers pada beberapa atribut, analisis outliers akan dilakukan untuk mendapatkan gambaran yang lebih lengkap terkait outliers yang terdapat pada dataset.")
+        st.markdown('''
+**Insights :**
+
+From the descriptive statistical analysis, skewness, kurtosis, and visualization of data distribution, the following insights can be drawn:
+
+1. The "PRICE" column shows a right-skewed (positively skewed) data distribution with a skewness around 1.78, indicating the presence of houses with significantly high prices.
+2. The "BEDROOMS" column has a more even distribution with a mean around 3.66 and skewness approaching 0, indicating that the number of bedrooms in houses is more evenly distributed.
+3. The "BATHROOMS" column also has a more even distribution with skewness close to 0, suggesting that the number of bathrooms in houses tends to be evenly distributed.
+4. The "GARAGE" column has very high skewness, approximately 16.28, indicating the presence of many outliers with an extremely high number of garages.
+5. The "LAND_AREA" column has a data distribution with a mean around 2740.64 and skewness around 33.76, suggesting the presence of some houses with very large land areas.
+6. The "FLOOR_AREA" column has a more even data distribution with skewness approaching 0 (1.35), suggesting that the floor area of houses is relatively evenly distributed.
+7. The "BUILD_YEAR" column has negative skewness, around -1.39, indicating the presence of some older construction years.
+8. The "CBD_DIST" column has a skewness of about 0.88, indicating a more even data distribution for the distance towards the city center.
+9. The "NEAREST_STN_DIST" column has a skewness around 2.45, indicating the presence of some very distant distances to stations.
+10. The "POSTCODE" column has a skewness around 2.07, indicating the presence of some postal codes far from the average.
+11. The "LATITUDE" column has skewness around -0.38 and kurtosis around -0.11, indicating a tendency toward symmetrical distribution.
+12. The "LONGITUDE" column has skewness around 0.63 and kurtosis around 0.05, suggesting a tendency toward symmetrical distribution.
+13. The "NEAREST_SCH_DIST" column has skewness around 3.75 and kurtosis around 20.03, indicating some very distant distances to schools.
+14. The "NEAREST_SCH_RANK" column has skewness around 0.04 and kurtosis around -1.22, indicating a relatively symmetrical distribution.
+
+From these insights, we can observe the differences and similarities in the characteristics of data distribution, skewness, kurtosis, and indications of outliers. The first set of data (descriptive statistics) shows several attributes with more even distributions, while the second set of data (skewness and kurtosis) indicates several attributes with skewed distributions. Additionally, the skewness and kurtosis data also suggest some attributes with higher skewness and kurtosis values, indicating longer tails in the data distribution and potential existence of outliers. Furthermore, after the indication of outliers in some attributes, an outlier analysis will be conducted to gain a more comprehensive understanding of the outliers present in the dataset.''')
     
-    with st.expander ('**Analisis Outliers**'):
-        st.markdown('**Analisis Outliers Fitur Numerik Dataset**')
+    with st.expander ('**Outliers Identifications Analysis**'):
+        st.markdown('**Outliers Identification Analysis in Numerical Features**')
         st.image('boxplots.png')
-        st.markdown('**Insight :**')
-        st.markdown("1. **PRICE**: Terdapat sekitar 6.28% outliers upper bound, menunjukkan adanya beberapa harga properti yang sangat tinggi.\n2. **BEDROOMS**: Persentase outliers terbilang rendah, sekitar 0.28% di bawah batas bawah (lower bound) dan 1.12% di atas batas atas (upper bound). Mengindikasikan adanya sejumlah kecil beberapa properti yang memiliki jumlah kamar lebih rendah ataupun lebih banyak dari sebagian besar properti lainnya.\n3. **BATHROOMS**: Hanya sekitar 0.80% outliers di atas batas atas (upper bound). Mengindikasikan distribusi data yang lebih merata, namun masih ada sebagian kecil properti yang memiliki jumlah bathrooms yang lebih tinggi dari properti lainnya\n4. **GARAGE**: Atribut ini memiliki persentase outliers yang sangat tinggi, sekitar 15.72% di bawah batas bawah (lower bound) dan 15.34% di atas batas atas (upper bound). Hal ini mengindikasikan bahwa distribusi data sangat tidak merata, sehingga ada cukup banyak properti memiliki garasi yang dapat menampung kendaraan lebih banyak ataupun lebih sedikit dibandingkan sebagian besar properti yang masih masuk ke dalam range rata-rata (2 mobil).\n5. **LAND_AREA**: Terdapat sekitar 14.58% outliers di atas batas atas (upper bound), menunjukkan adanya sebagian besar properti dengan lahan yang sangat besar dibandingkan beberapa rumah lainnya.\n6. **FLOOR_AREA**: Hanya sekitar 2.23% outliers di atas batas atas (upper bound). Menunjukkan adanya sebagian kecil properti yang memiliki luas bangunan yang lebih besar dibandingkan dengan properti lainnya.\n7. **BUILD_YEAR**: Persentase outliers ditemukan dengan 2.87% di bawah batas bawah, mengindikasikan beberapa properti yang dibangun pada range tahun yang lebih lama dibandingkan sebagian besar properti lainnya.\n8. **CBD_DIST**: Terdapat sekitar 1.96% outliers di atas batas atas (upper bound). Menunjukkan adanya sebagian properti yang memiliki jarak lebih jauh menuju pusat kota dibandingkan sebagian besar properti lainnya.\n9. **NEAREST_STN_DIST**: Mengindikasikan persentase outliers tinggi, sekitar 9.01% di atas batas atas (upper bound), menunjukkan terdapat beberapa jarak yang sangat jauh ke stasiun.\n10. **POSTCODE**: Hanya sekitar 0.47% outliers di atas batas atas (upper bound).\n11. **LATITUDE**: Persentase outliers rendah, dengan 1.19% di atas batas bawah dan 0.25% di atas batas atas.\n12. **LONGITUDE**: Terdapat sekitar 0.48% outliers di atas batas atas (upper bound).\n**Outliers latitude dan longitude mungkin tidak terlalu signifikan dikarenakan values nya hanya dibatasi pada teritorial perth**\n13. **NEAREST_SCH_DIST**: Persentase outliers sekitar 6.82% di atas batas atas (upper bound), menunjukkan adanya beberapa properti yang memiliki jarak yang sangat jauh ke sekolah.\n14. **NEAREST_SCH_RANK**: Tidak ada outliers yang diidentifikasi dalam atribut ini.\nDengan informasi persentase outliers ini, kita dapat lebih memahami sejauh mana sebaran data yang ekstrem dalam masing-masing atribut dan juga memberikan informasi perlunya dilakukan penanganan outliers lebih lanjut.")
-        st.markdown('**Persentase Outliers Setelah Capping dengan Winsorizer**')
+        st.markdown('''
+**Insights :**
+
+1. **PRICE:** Approximately 6.28% outliers are identified above the upper bound, indicating some properties with exceptionally high prices.
+2. **BEDROOMS:** The percentage of outliers is relatively low, about 0.28% below the lower bound and 1.12% above the upper bound. This suggests a small number of properties with either fewer or more bedrooms compared to most properties.
+3. **BATHROOMS:** Only about 0.80% of outliers are above the upper bound, suggesting a more evenly distributed data. However, there is a small proportion of properties with a higher number of bathrooms compared to the majority.
+4. **GARAGE:** This attribute exhibits a remarkably high percentage of outliers, approximately 15.72% below the lower bound and 15.34% above the upper bound. This indicates a highly uneven data distribution, suggesting many properties having garages accommodating significantly more or fewer vehicles compared to the majority of properties that fall within the average range (2 cars).
+5. **LAND_AREA:** There are about 14.58% outliers above the upper bound, indicating a significant number of properties with extremely large land areas compared to others.
+6. **FLOOR_AREA:** Only about 2.23% of outliers are above the upper bound, suggesting a small proportion of properties with larger floor areas compared to others.
+7. **BUILD_YEAR:** Outliers are identified with 2.87% below the lower bound, indicating some properties built in older years compared to the majority.
+8. **CBD_DIST:** There are about 1.96% outliers above the upper bound, indicating some properties having a farther distance to the city center compared to most properties.
+9. **NEAREST_STN_DIST:** Indicates a high percentage of outliers, approximately 9.01% above the upper bound, suggesting some properties have very distant distances to the train station.
+10. **POSTCODE:** Only about 0.47% of outliers are above the upper bound.
+11. **LATITUDE:** Low outlier percentages, with 1.19% below the lower bound and 0.25% above the upper bound.
+12. **LONGITUDE:** Approximately 0.48% outliers are above the upper bound.
+**Outliers in latitude and longitude might not be as significant due to values being confined within Perth's territorial boundaries.**
+13. **NEAREST_SCH_DIST:** Outliers are around 6.82% above the upper bound, indicating some properties have very distant distances to schools.
+14. **NEAREST_SCH_RANK:** No outliers are identified in this attribute.
+
+With this information on the percentage of outliers, we can better understand the extent of extreme data points in each attribute and recognize the importance of further handling outliers.''')
+        st.markdown('**Outliers Identification Analysis after Handling with Winsorizers Capping Method**')
         st.markdown('''
 | Variabel             | Lower Bound Outliers | Upper Bound Outliers |
 |----------------------|----------------------|----------------------|
@@ -56,9 +134,9 @@ def run():
 | NEAREST_SCH_RANK     | 0.00%                | 0.00%                |
                     ''')
         st.markdown('''
-Dari perbandingan data outliers di atas, kita dapat melihat bahwa penanganan outliers telah mengurangi persentase outliers pada beberapa atribut, seperti BEDROOMS, BATHROOMS, dan beberapa atribut lainnya. Namun, atribut GARAGE tetap memiliki persentase outliers yang signifikan setelah penanganan. Hal ini diasumsikan sebagai anomali, namun akan dianalisis lebih lanjut dengan melakukan investigasi mendalam terkait unique values nya dan penanganannya lebih lanjut                    ''')
+After implementing the winsorizer as the method to address the issue of outliers, the results indicate that outliers in several features, such as BEDROOMS, BATHROOMS, and others, have been effectively handled. However, the 'GARAGE' feature still exhibits a notable percentage of outliers even after the applied treatment. This anomaly is presumed to persist, prompting further analysis involving an in-depth investigation into its unique values and necessitating additional treatment.''')
         st.text('')
-        st.markdown('**Pengamatan Outliers pada Fitur Garage**')
+        st.markdown('**Further Analysis on Outliers in Garage Features**')
         st.markdown('''
 | Variabel   | Lower Bound Outliers | Upper Bound Outliers | Lower Boundary | Upper Boundary |
 |------------|----------------------|----------------------|-----------------|-----------------|
@@ -66,170 +144,166 @@ Dari perbandingan data outliers di atas, kita dapat melihat bahwa penanganan out
                     ''')
         st.image('boxplot garage.png')
         st.markdown('''
-**Insight :**
-Dari data di atas, dapat dilihat bahwa nilai lower boundary dan upper boundary dari fitur garage memiliki nilai yang sama, hal tersebut juga didukung oleh boxplot yang juga menggambarkan range quartile (Q1-Q3) yang sangat sempit, sesuai dengan skewness yang kecil dan kurtosis yang besar pada data garage ini. Oleh karena itu, Kita akan menganggap bahwa data pada fitur garage sebagai data yang tidak valid, dan akan dieliminasi dari data untuk persiapan pembuatan model.                    ''')
+**Insight:**
+Based on the provided data, it's evident that the values of the lower and upper boundaries for the 'garage' feature are identical. This observation is complemented by the box plot, indicating an extremely narrow quartile range (Q1-Q3), implying low skewness and high kurtosis within this garage data. Consequently, we'll consider the data in the 'garage' feature as invalid, potentially due to misinformation during the data collection process. For instance, individuals residing in apartments may not have personal garages since it's a public facility. Consequently, the 'garage' feature will be excluded from the dataset to prepare for model construction.''')
     
-    with st.expander('**Analisi Korelasi Data**'):
-        st.markdown('**Analisis Korelasi Fitur Numerik terhadap Prediksi Harga Properti**')
+    with st.expander('**Features Correlations Analysis**'):
+        st.markdown('**Numerical Features Correlations Analysis**')
         st.image('korelasi_numerik.png')
-        st.markdown('**Insight :**')
         st.markdown('''
+**Insight:**
 
-Berdasarkan hasil Matriks korelasi kendall yang dilakukan, didapatkan hasil analisis korelasi antara atribut-atribut numerik dalam dataset terhadap variabel target (harga). Nilai korelasi yang didapat kemudian akan dikategorikan menjadi beberapa kelompok sebagai berikut :
+Based on the Kendall correlation matrix analysis, the correlation between the numeric attributes in the dataset against the target variable (price) has been assessed. The obtained correlation values are then categorized into several groups as follows:
 
-- "High_Positive_Correlation" menunjukkan korelasi positif yang kuat (korelasi > 0.5).
-- "Moderate_Positive_Correlation" menunjukkan korelasi positif yang sedang (0.5 < korelasi > 0.1).
-- "Low_Positive_Correlation" menunjukkan korelasi positif yang lemah (0.1 < korelasi > 0).
-- "High_Negative_Correlation" menunjukkan korelasi negatif yang kuat (korelasi > 0.5).
-- "Moderate_Negative_Correlation" menunjukkan korelasi negatif yang sedang (0.5 < korelasi > 0.1).
-- "Low_Negative_Correlation" menunjukkan korelasi negatif yang lemah (korelasi > 0.5).
+- "High_Positive_Correlation" indicates a strong positive correlation (correlation > 0.5).
+- "Moderate_Positive_Correlation" indicates a moderate positive correlation (0.5 < correlation > 0.1).
+- "Low_Positive_Correlation" indicates a weak positive correlation (0.1 < correlation > 0).
+- "High_Negative_Correlation" indicates a strong negative correlation (correlation < -0.5).
+- "Moderate_Negative_Correlation" indicates a moderate negative correlation (-0.5 < correlation < -0.1).
+- "Low_Negative_Correlation" indicates a weak negative correlation (correlation < -0.1).
 
-Berikut adalah insight terkait korelasi variabel-variabel pada dataset terhadap variabel "PRICE":
+Here are insights regarding the correlation of variables in the dataset with the "PRICE" variable:
 
-1. Harga properti tidak memiliki korelasi positif yang kuat dengan fitur lainnya yang ada pada dataset
+1. The property price does not have a strong positive correlation with other features in the dataset.
 
-2. Harga Memiliki korelasi positif yang sedang dengan:
-   - Jumlah kamar tidur (**BEDROOMS**).
-   - Jumlah kamar mandi (**BATHROOMS**).
-   - Jumlah/kapasitas kendaraan dalam garasi (**GARAGE**)
-   - Luas Tanah Properti (**LAND_AREA**)
-   - Luas Bangunan (**FLOOR_AREA**)
+2. Price has a moderate positive correlation with:
+   - Number of bedrooms (**BEDROOMS**).
+   - Number of bathrooms (**BATHROOMS**).
+   - Garage capacity (**GARAGE**).
+   - Land area of the property (**LAND_AREA**).
+   - Floor area (**FLOOR_AREA**).
 
-3. Harga memiliki korelasi positif yang lemah dengan:
+3. Price has a weak positive correlation with:
    - Latitude (**LATITUDE**).
-   - Jarak ke sekolah terdekat (**NEAREST_SCH_DIST**).
-   - Tahun Penjualan Properti (**DATE_SOLD**)
+   - Distance to the nearest school (**NEAREST_SCH_DIST**).
+   - Property sale year (**DATE_SOLD**).
 
-4. Harga properti tidak memiliki korelasi negatif yang kuat dengan fitur lainnya yang ada pada dataset.
+4. The property price does not have a strong negative correlation with other features in the dataset.
 
-5. Harga Memiliki korelasi negatif yang sedang dengan:
-   - Jarak Properti ke Pusat Kota (**CBD_DIST**)
-   - Kode Pos (**POSTCODE**)
-   - Longitude (**LONGITUDE**)
-   - Peringkat sekolah terdekat dari properti (**NEAREST_SCH_RANK**)
+5. Price has a moderate negative correlation with:
+   - Distance of the property to the city center (**CBD_DIST**).
+   - Postal code (**POSTCODE**).
+   - Longitude (**LONGITUDE**).
+   - Nearest school's ranking from the property (**NEAREST_SCH_RANK**).
 
-6. Harga memiliki korelasi negatif yang lemah dengan:
-   - Tahun properti tersebut dibangun (**BUILD_YEAR**).
-   - Jarak ke stasiun terdekat (**NEAREST_STN_DIST**).
+6. Price has a weak negative correlation with:
+   - Year the property was built (**BUILD_YEAR**).
+   - Distance to the nearest station (**NEAREST_STN_DIST**).
 
-Dari hasil kategorisasi korelasi fitur numerik terhadap harga, kita dapat menyimpulkan bahwa beberapa fitur yang bisa memiliki pengaruh cukup signifikan pada model yang akan dibuat adalah fitur yang berkategori moderate to high correlations, sehingga fitur yang memiliki low correlation, dan memiliki informasi yang dapat direpresentasikan oleh fitur lainnya akan dihapus dari dataset pada proses persiapan modelling. Beberapa fitur yang akan dihapus adalah :
-   - Tahun properti tersebut dibangun (**BUILD_YEAR**) -> Korelasi yang kurang signifikan
-   - Jarak ke stasiun terdekat (**NEAREST_STN_DIST**) -> Korelasi yang kurang signifikan
-   - Latitude (**LATITUDE**) -> Korelasi yang kurang signifikan
-   - Longitude (**LONGITUDE**) -> Korelasi moderat, namun fungsinya dapat direpresentasikan oleh suburb ataupun address
-   - Jarak ke sekolah terdekat (**NEAREST_SCH_DIST**) -> Korelasi yang kurang signifikan 
-   - Tahun Penjualan Properti (**DATE_SOLD**) -> Korelasi yang kurang signifikan
-   - Kode Pos (**POST_CODE**) -> Korelasi moderat, namun fungsinya dapat direpresentasikan oleh suburb ataupun address
-                    ''')
+From the categorization of the numeric feature correlations with the price, we can conclude that several features might have a significant influence on the model to be built, as they exhibit moderate to high correlations. Hence, the features with low correlation that have redundant information or can be represented by other features will be removed from the dataset during the modeling preparation. Some features to be removed include:
+   - Year the property was built (**BUILD_YEAR**) -> Insignificant correlation
+   - Distance to the nearest station (**NEAREST_STN_DIST**) -> Insignificant correlation
+   - Latitude (**LATITUDE**) -> Insignificant correlation
+   - Longitude (**LONGITUDE**) -> Moderate correlation, but its function can be represented by suburb or address
+   - Distance to the nearest school (**NEAREST_SCH_DIST**) -> Insignificant correlation
+   - Property sale year (**DATE_SOLD**) -> Insignificant correlation
+   - Postal code (**POST_CODE**) -> Moderate correlation, but its function can be represented by suburb or address
+''')
         st.text('')
-        st.markdown('**Analisis Korelasi Fitur Kategorikal terhadap Harga Properti**')
+        st.markdown('**Categorical Features Correlations Analysis**')
         st.image('korelasi_kategorikal.png')
-        st.markdown('**Insight :**')
         st.markdown('''
+**Insight:**
 
-Berdasarkan hasil Matriks korelasi phik yang dilakukan, didapatkan hasil analisis korelasi antara atribut-atribut kategorikal dalam dataset terhadap variabel target (harga). Nilai korelasi yang didapat kemudian akan dikategorikan menjadi beberapa kelompok sebagai berikut :
+Based on the Phik correlation matrix analysis conducted, the correlation analysis between categorical attributes within the dataset and the target variable (price) was obtained. The correlation values were categorized into several groups as follows:
 
-- "High_Positive_Correlation" menunjukkan korelasi positif yang kuat (korelasi > 0.5).
-- "Moderate_Positive_Correlation" menunjukkan korelasi positif yang sedang (0.5 < korelasi > 0.1).
-- "Low_Positive_Correlation" menunjukkan korelasi positif yang lemah (0.1 < korelasi > 0).
-- "High_Negative_Correlation" menunjukkan korelasi negatif yang kuat (korelasi > 0.5).
-- "Moderate_Negative_Correlation" menunjukkan korelasi negatif yang sedang (0.5 < korelasi > 0.1).
-- "Low_Negative_Correlation" menunjukkan korelasi negatif yang lemah (korelasi > 0.5).
+- "High_Positive_Correlation" represents a strong positive correlation (correlation > 0.5).
+- "Moderate_Positive_Correlation" indicates a moderate positive correlation (0.5 < correlation > 0.1).
+- "Low_Positive_Correlation" signifies a weak positive correlation (0.1 < correlation > 0).
+- "High_Negative_Correlation" denotes a strong negative correlation (correlation < -0.5).
+- "Moderate_Negative_Correlation" indicates a moderate negative correlation (-0.5 < correlation > -0.1).
+- "Low_Negative_Correlation" signifies a weak negative correlation (correlation < -0.5).
 
-Berikut adalah insight terkait korelasi variabel-variabel kategorikal pada dataset terhadap variabel "PRICE":
+Here are the insights regarding the correlation of categorical variables in the dataset with the "PRICE" variable:
 
-1. Harga memiliki korelasi positif yang kuat dengan :
-   - Kawasan tempat properti berada (**SUBURB**)
-   - Stasiun terdekat dari properti (**NEAREST_STN**)
-   - Sekolah terdekat dari properti (**NEAREST_SCH**)
+1. Price has a strong positive correlation with:
+   - Property location suburb (**SUBURB**)
+   - Nearest station to the property (**NEAREST_STN**)
+   - Nearest school to the property (**NEAREST_SCH**)
 
-2. Harga Memiliki korelasi positif yang sedang dengan:
-   - Tanggal Properti Terjual terakhir (**DATE_SOLD**).
- 
-3. Harga memiliki korelasi negatif yang lemah dengan:
-   - Alamat properti berada (**ADDRESS**).
+2. Price has a weak correlation with:
+   - Property address (**ADDRESS**).
 
-Dari hasil kategorisasi korelasi fitur kategorikal terhadap harga, kita dapat menyimpulkan bahwa beberapa fitur yang bisa memiliki pengaruh cukup signifikan pada model yang akan dibuat adalah fitur yang berkategori moderate to high correlations, sehingga fitur yang memiliki low correlation akan dihapus dari dataset pada proses persiapan modelling. Berdasakan analisis korelasi fitur kategorikal yang dilakukan dengan menggunakan phik correlations, **ADDRESS** (Alamat properti) dianggap tidak memiliki korelasi yang signifikan terhadap harga properti, sehingga fitur tersebut akan dieliminasi.
-                    ''')
+From the categorization of categorical feature correlations with the price, it can be concluded that features falling under moderate to high correlation categories tend to have a significant impact on the model. Therefore, features with low correlation will be removed from the dataset during the modeling preparation process. Based on the analysis of categorical feature correlations using Phik correlations, **ADDRESS** (Property address) is considered to have an insignificant correlation with property price. Hence, this feature will be eliminated.
+''')
         st.text('')
-        st.markdown('**Kesimpulan Analisis Korelasi**')
-        st.markdown('''1. Harga memiliki korelasi kuat terhadap:
-   - **SUBURB**: Ini menunjukkan bahwa lokasi atau kawasan tempat properti berada adalah salah satu faktor utama dalam menentukan harga properti. Beberapa suburb mungkin lebih mahal atau memiliki kualitas properti yang lebih tinggi.
-   - **NEAREST_STN** dan **NEAREST_SCH**: Properti yang berdekatan dengan stasiun kereta atau sekolah terdekat cenderung memiliki harga yang lebih tinggi. Aksesibilitas ke transportasi dan pendidikan mungkin menjadi faktor penentu yang signifikan dalam menentukan harga properti.
+        st.markdown('''
+**Correlation Analysis Summary**
 
-2. Harga memiliki korelasi positif yang sedang dengan:
-   - **BEDROOMS**, **BATHROOMS**, **GARAGE**: Properti dengan lebih banyak kamar tidur, kamar mandi, dan kapasitas garasi cenderung memiliki harga yang lebih tinggi. Ini mencerminkan permintaan yang lebih tinggi untuk rumah dengan lebih banyak fasilitas.
-   - **LAND_AREA** dan **FLOOR_AREA**: Luas tanah dan luas bangunan properti juga berkontribusi positif terhadap harga. Properti yang lebih besar cenderung memiliki harga yang lebih tinggi.
-   - **DATE_SOLD**: Tanggal terjualnya properti juga memiliki korelasi positif yang sedang dengan harga. Hal ini mungkin terkait dengan tren pasar yang berubah seiring waktu.
+1. Price has a strong correlation with:
+   - **SUBURB**: This indicates that the location or area where the property is situated is a primary factor in determining property prices. Certain suburbs might be more expensive or have higher-quality properties.
+   - **NEAREST_STN** and **NEAREST_SCH**: Properties closer to train stations or nearby schools tend to have higher prices. Accessibility to transportation and education might be significant factors in determining property prices.
 
-3. Harga memiliki korelasi positif yang lemah dengan:
-   - **LATITUDE**: Korelasi positif yang lemah menunjukkan bahwa terdapat hubungan antara letak geografis (garis lintang) dan harga properti.
-   - **NEAREST_SCH_DIST**: Jarak ke sekolah terdekat berkontribusi positif yang lemah terhadap harga, meskipun tidak sekuat faktor lain.
+2. Price has a moderate positive correlation with:
+   - **BEDROOMS**, **BATHROOMS**, **GARAGE**: Properties with more bedrooms, bathrooms, and garage capacity tend to have higher prices. This reflects higher demand for houses with more amenities.
+   - **LAND_AREA** and **FLOOR_AREA**: The land area and floor area of the property also positively contribute to the price. Larger properties tend to have higher prices.
+   - **DATE_SOLD**: The property's sale date also moderately correlates with the price. This might be related to market trends evolving over time.
 
-4. Harga memiliki korelasi negatif yang sedang dengan:
-   - **CBD_DIST**, **POSTCODE**, **LONGITUDE**, **NEAREST_SCH_RANK**: Semua fitur ini berkontribusi negatif terhadap harga. Jarak properti ke pusat kota, kode pos, letak geografis (garis bujur), dan peringkat sekolah terdekat memiliki pengaruh negatif pada harga properti. Harga cenderung lebih rendah jika properti berjarak jauh dari pusat kota, memiliki kode pos yang lebih rendah, atau terletak lebih jauh dari sekolah berkualitas.
+3. Price has a weak positive correlation with:
+   - **LATITUDE**: Weak positive correlation suggests a relationship between geographic location (latitude) and property prices.
+   - **NEAREST_SCH_DIST**: Distance to the nearest school contributes weakly to the price, although not as strongly as other factors.
 
-5. Harga memiliki korelasi negatif yang lemah dengan:
-   - **BUILD_YEAR**, **NEAREST_STN_DIST**, **ADDRESS**: Korelasi negatif yang lemah menunjukkan bahwa fitur-fitur ini memiliki pengaruh kecil terhadap harga properti.
+4. Price has a moderate negative correlation with:
+   - **CBD_DIST**, **POSTCODE**, **LONGITUDE**, **NEAREST_SCH_RANK**: All these features contribute negatively to the price. Property distance to the city center, postcode, longitude, and the rank of the nearest school has a negative impact on property prices. Prices tend to be lower if the property is farther from the city center, has a lower postcode, or is located farther from high-quality schools.
 
-Dengan demikian, analisis korelasi ini dapat membantu calon pembeli atau investor properti untuk memahami faktor-faktor yang memengaruhi harga properti di daerah ini dan membuat keputusan yang lebih terinformasi. Selain itu, hasil analisis korelasi ini juga mengindikasikan adanya beberapa atribut yang bisa dieliminasi dari persiapan data untuk modelling lebih lanjut, beberapa di antaranya adalah : 
+5. Price has a weak negative correlation with:
+   - **BUILD_YEAR**, **NEAREST_STN_DIST**, **ADDRESS**: Weak negative correlations suggest these features have a small influence on property prices.
 
-   - Tahun properti tersebut dibangun (**BUILD_YEAR**) -> Korelasi yang kurang signifikan
-   - Jarak ke stasiun terdekat (**NEAREST_STN_DIST**) -> Korelasi yang kurang signifikan
-   - Latitude (**LATITUDE**) -> Korelasi yang kurang signifikan
-   - Longitude (**LONGITUDE**) -> Korelasi moderat, namun fungsinya dapat direpresentasikan oleh suburb ataupun address
-   - Jarak ke sekolah terdekat (**NEAREST_SCH_DIST**) -> Korelasi yang kurang signifikan 
-   - Tahun Penjualan Properti (**DATE_SOLD**) -> Korelasi yang kurang signifikan
-   - Kode Pos (**POST_CODE**) -> Korelasi moderat, namun fungsinya dapat direpresentasikan oleh suburb ataupun address
-   - Address (**ADDRESS**) -> Korelasi yang kurang signifikan
-                    ''')
+Hence, this correlation analysis can aid potential property buyers or investors in understanding the factors influencing property prices in this area, enabling more informed decisions. Additionally, the correlation analysis results indicate some attributes that can be eliminated from the data preparation for further modeling, some of which include:
+
+   - Year the property was built (**BUILD_YEAR**) -> Insignificant correlation
+   - Distance to the nearest station (**NEAREST_STN_DIST**) -> Insignificant correlation
+   - Latitude (**LATITUDE**) -> Insignificant correlation
+   - Longitude (**LONGITUDE**) -> Moderate correlation, but its function can be represented by suburb or address
+   - Distance to the nearest school (**NEAREST_SCH_DIST**) -> Insignificant correlation
+   - Property sale year (**DATE_SOLD**) -> Insignificant correlation
+   - Postcode (**POST_CODE**) -> Moderate correlation, but its function can be represented by suburb or address
+   - Address (**ADDRESS**) -> Insignificant correlation                    ''')
         st.text('')
-    with st.expander ('**Analisis Pengaruh Jarak Menuju Pusat Kota terhadap Harga Properti**'):
+    with st.expander ('**Analysis of the Influence of Distance to the City Center on Property Prices**'):
         st.image('Analisis Pengaruh Jarak Menuju Pusat Kota terhadap Harga Properti.png')    
-        st.markdown('''**Insight:**
+        st.markdown('''
+**Insight:**
 
-Dari analisis yang menghubungkan jarak suatu properti ke pusat kota dengan harga propertinya, terlihat adanya kecenderungan bahwa semakin dekat suatu properti ke pusat kota, harganya cenderung lebih tinggi. Hal ini mengindikasikan adanya korelasi positif moderat antara kedekatan dengan pusat kota dan harga properti. Penemuan ini dapat dijelaskan dengan adanya peningkatan harga properti yang lebih tinggi untuk properti yang lebih dekat dengan pusat kota. Ini adalah informasi berharga bagi calon pembeli dan penjual properti yang ingin memahami faktor-faktor yang memengaruhi harga properti di wilayah tersebut.
-                    ''')
-    with st.expander('**Analisis 10 Suburbs dengan Harga Tertinggi**'):
+From the analysis correlating the distance of a property to the city center with its price, there is a tendency that the closer a property is to the city center, the higher its price tends to be. This indicates a moderate positive correlation between proximity to the city center and property prices. This finding suggests an increase in property prices for those closer to the city center. This information is valuable for prospective property buyers and sellers seeking to understand the influencing factors affecting property prices in that area.                    ''')
+    with st.expander('**Analysis of the Top 10 Suburbs with the Highest Prices**'):
         st.image('map of perth.png')
         st.image('10 Suburbs Termahal.png')
         st.image('Jumlah Properti Top 10 Suburbs.png')
-        st.markdown('''**Insight :**
+        st.markdown('''**Insight:**
 
-Dalam konteks perbandingan ketersediaan jumlah properti, demand, dan eksklusivitas (harga) di antara suburbs eksklusif (10 harga tertinggi) di Perth, kita dapat mengklasifikasikan suburbs menjadi tiga kategori berdasarkan karakteristiknya:
+In the context of comparing property availability, demand, and exclusivity (price) among exclusive suburbs (top 10 highest-priced) in Perth, we can classify suburbs into three categories based on their characteristics:
 
-1. **Suburbs dengan Permintaan Tinggi (High Demand)**:
-   - Suburbs seperti "City Beach," "Floreat," "Watermans Bay," dan "Mosman Park" memiliki jumlah properti yang signifikan, menunjukkan permintaan yang tinggi di daerah ini. Permintaan tinggi ini mungkin dipicu oleh lokasi geografis yang menarik, akses ke fasilitas umum, dan daya tarik lingkungannya.
+1. **Suburbs with High Demand**:
+   - Suburbs such as "City Beach," "Floreat," "Watermans Bay," and "Mosman Park" exhibit a significant number of properties, indicating high demand in these areas. This high demand might be triggered by attractive geographical locations, access to public amenities, and the environmental allure.
 
-2. **Suburbs Eksklusif (Exclusive Suburbs)**:
-   - Suburbs seperti "Applecross," "Hazelmere," dan "Dalkeith" meskipun memiliki jumlah properti yang lebih sedikit, harga properti yang tinggi mengindikasikan eksklusivitas daerah ini, di mana properti mungkin lebih langka dan menawarkan fasilitas yang sangat eksklusif. Eksklusivitas dapat menciptakan permintaan yang tinggi dari segmen pasar tertentu.
+2. **Exclusive Suburbs**:
+   - Suburbs like "Applecross," "Hazelmere," and "Dalkeith," despite having fewer properties, boast high property prices, indicating the exclusivity of these areas where properties might be rarer and offer extremely exclusive amenities. This exclusivity can create high demand from specific market segments.
 
-3. **Suburbs dengan Ketersediaan Menengah (Moderate Availability)**:
-   - Beberapa suburbs lainnya seperti "Peppermint Grove" juga muncul dalam daftar jumlah properti, namun tidak sepopuler atau se-eksklusif suburbs lainnya. Hal ini dapat mengindikasikan bahwa permintaan di daerah ini mungkin lebih moderat, dan ketersediaan properti lebih seimbang.
+3. **Suburbs with Moderate Availability**:
+   - Some other suburbs like "Peppermint Grove" also appear in the list of property numbers but are not as popular or exclusive as other suburbs. This might indicate that the demand in these areas is more moderate, and property availability is more balanced.
 
-Dengan demikian, dapat disimpulkan bahwa ada perbedaan yang signifikan dalam ketersediaan jumlah properti, permintaan, dan tingkat eksklusivitas antara suburbs di Perth. Suburbs yang memiliki permintaan tinggi dapat mencerminkan popularitas dan daya tariknya di antara calon pembeli properti. Suburbs eksklusif dengan jumlah properti yang lebih sedikit dapat menunjukkan eksklusivitas tinggi, yang mungkin menghasilkan harga properti yang lebih tinggi. Suburbs dengan ketersediaan menengah menciptakan keseimbangan antara ketersediaan dan permintaan.
-                    ''')
-    with st.expander('**Suburbs Dengan Potensi Pengembangan yang Besar**'):
+Therefore, it can be concluded that there are significant differences in property availability, demand, and the level of exclusivity among suburbs in Perth. Suburbs with high demand may reflect their popularity and appeal among potential property buyers. Exclusive suburbs with fewer properties may demonstrate high exclusivity, resulting in higher property prices. Suburbs with moderate availability create a balance between availability and demand.''')
+    with st.expander('**Potential Suburbs for Further Development**'):
         st.image('Suburbs Potensial.png')
         st.image('Harga Suburbs Potensial.png')
         st.image('Perkembangan Pembangunan Properti Potensial.png')
-        st.markdown('''**Insight :**
+        st.markdown('''**Insight:**
 
-Dari visualisasi perkembangan pembangunan properti per tahun pada 10 suburb teratas, 
+From the visualization of property development trends per year in the top 10 suburbs:
 
-Terlihat bahwa suburbs "Butler", "mindarie", dan "iluka" terdapat peningkatan pembangunan properti yang sangat signifikan pada 5 tahun terakhir, dan hal ini menunjukan indikasi potensi pengembangan bisnis yang cukup besar di wilayah tersebut dikarenakan adanya demand yang meningkat pada rentang 5 tahun terakhir.
+It is evident that suburbs such as "Butler," "Mindarie," and "Iluka" have shown a remarkably significant increase in property development over the last 5 years. This indicates a potential substantial business development in these areas due to the increased demand observed during this 5-year period.
 
-Namun, suburb "Henley Brook," "Darch," dan "Jane Brook" mengalami fluktuasi yang cenderung mengarah ke penurunan jumlah properti dalam beberapa tahun terakhir, mungkin karena faktor-faktor tertentu yang memengaruhi pasar properti di wilayah-wilayah tersebut.
+However, suburbs like "Henley Brook," "Darch," and "Jane Brook" have experienced fluctuations tending towards a decrease in the number of properties in recent years, possibly due to certain factors influencing the property market in these areas.
 
-Berdasarkan analisis ini, kita dapat menyimpulkan bahwa beberapa suburb yang berpotensi untuk dikembangkan dan memiliki demand yang tinggi adalah :
+Based on this analysis, we can conclude that some suburbs with high potential for development and increased demand are:
 
 - Butler
 - Mindarie
-- Iluka
-                    ''')
+- Iluka''')
     
-    with st.expander('**Analisis Multicollinearity**'):
-        st.markdown('**Multicollinearity Numerical Features pada Dataset**')
+    with st.expander('**Multicollinearity Analisis**'):
+        st.markdown('**Multicollinearity Analysis on Numerical Features**')
         st.markdown('''
 | variabel           | VIF       |
 |--------------------|-----------|
@@ -242,17 +316,18 @@ Berdasarkan analisis ini, kita dapat menyimpulkan bahwa beberapa suburb yang ber
 | NEAREST_SCH_RANK   | 5.585463  |
 
                     ''')
-        st.markdown('''**Insight :**
+        st.markdown('''
+**Insight:**
 
-Dengan mempertimbangkan insight yang diberikan oleh data VIF dan korelasi antara variabel-variabel dalam data, kita dapat membuat beberapa hubungan berikut:
+Considering the insights provided by the VIF data and the correlations between variables in the dataset, we can establish the following relationships:
 
-**BEDROOMS dan BATHROOMS:** Kedua variabel ini memiliki VIF yang tinggi dan korelasi yang kuat. Ini berarti bahwa "BEDROOMS" dan "BATHROOMS" memiliki hubungan multikolinearitas yang signifikan dan memiliki korelasi positif yang cukup kuat. 
+**BEDROOMS and BATHROOMS:** Both variables exhibit high VIF values and a strong correlation. This signifies that "BEDROOMS" and "BATHROOMS" share significant multicollinearity and have a fairly strong positive correlation.
 
-**FLOOR_AREA:** Variabel "FLOOR_AREA" memiliki VIF yang tinggi dan korelasi yang kuat dengan beberapa variabel lain seperti "BEDROOMS" dan "BATHROOMS."
+**FLOOR_AREA:** The variable "FLOOR_AREA" also demonstrates high VIF and strong correlation with some other variables such as "BEDROOMS" and "BATHROOMS."
 
-Dari insight di atas, untuk menangani adanya multikolinearitas dalam data, amelakukan drop terhadap fitur bathrooms dan floor area diasumsikan menjadi langkah yang tepat karena dirasa pada kasus actual, kedua atribut di atas memiliki faktor yang kurang signifikan dan dapat direpresentasikan oleh fitur bedrooms dan land area terkait informasinya dan secara korelasinya terhadap harga properti 
+From the above insights, to address multicollinearity within the dataset, dropping the "BATHROOMS" and "FLOOR_AREA" features is assumed to be a suitable step. It is believed that in practical scenarios, these two attributes might have less significant factors and can be represented by the "BEDROOMS" and "LAND_AREA" features, both in terms of information content and their correlation with property prices.
                     ''')
-        st.markdown('**Multicollinearity Setelah Drop Fitur Floor Area dan Bathrooms**')
+        st.markdown('**Multicollinearity After Dropping Floor Area dan Bathrooms Features**')
         st.markdown('''
 | variabel           | VIF       |
 |--------------------|-----------|
@@ -265,24 +340,25 @@ Dari insight di atas, untuk menangani adanya multikolinearitas dalam data, amela
         st.markdown('''
                     **Insight :**
 
-Multikolinearitas pada variabel independent telah berhasil ditangani dan dikurangi menjadi di bawah 10.0''')
+Multicollinearity Issue have been successfully addressed.''')
         
-    with st.expander('**Kesimpulan EDA**'):
+    with st.expander('**Summary of EDA Process**'):
         st.markdown('''
-**Kesimpulan EDA**
+**Conclusion of Exploratory Data Analysis**
 
-Berdasarkan EDA (Exploratory Data Analysis) yang telah dilakukan pada dataset properti di Perth, kita dapat mengambil beberapa kesimpulan dan wawasan sebagai berikut:
+Based on the Exploratory Data Analysis (EDA) conducted on the property dataset in Perth, we can draw several conclusions and insights as follows:
 
-1. **Jumlah Properti dan Ketersediaan**: Terdapat variasi dalam jumlah properti di berbagai suburb di Perth. Suburb seperti "Bertram," "Iluka," "Bennett Springs," dan "Mindarie" memiliki jumlah properti yang tinggi, mengindikasikan populasi yang padat dan permintaan tinggi untuk tempat tinggal. Namun, ada juga suburb dengan jumlah properti yang lebih sedikit.
+1. **Property Counts and Availability**: There is a variation in the number of properties across different suburbs in Perth. Suburbs such as "Bertram," "Iluka," "Bennett Springs," and "Mindarie" have a high number of properties, indicating dense populations and high demand for accommodation. However, there are also suburbs with fewer properties.
 
-2. **Variasi Tipe Properti**: Adanya variasi dalam tipe properti yang tersedia di suburb, yang memengaruhi harga properti. Suburb tertentu mungkin menawarkan jenis properti yang lebih eksklusif atau premium, sementara suburb lainnya memiliki lebih banyak properti yang lebih terjangkau.
+2. **Variation in Property Types**: There is diversity in the types of properties available in suburbs, which affects property prices. Some suburbs may offer more exclusive or premium property types, while others have more affordable properties.
 
-3. **Investasi Properti**: Data ini dapat memberikan wawasan bagi pengembang properti atau investor potensial tentang suburb yang mungkin menarik untuk pengembangan lebih lanjut atau investasi properti sesuai dengan target segmentasi investasi mereka (ekslusif atau properti yang lebih terjangkau), melalui insights tanda-tanda pertumbuhan penduduk (dalam data ini direpresentasikan oleh perkembangan pembangunan properti), harga properti, dan juga fasilitas di wilayah sekitar suburb tersebut.
+3. **Property Investment**: This data can provide insights for property developers or potential investors about suburbs that might be attractive for further development or property investment according to their targeted investment segmentation (exclusive or more affordable properties). Insights based on population growth indicators (represented in this data by property development trends), property prices, and facilities in the surrounding area could guide potential investment decisions.
 
-Selain itu, info-info lain mengenai dataset yang berhasil diamati adalah :
-- Distribusi data yang tidak merata pada sebagian besar atribut
-- Outliers -> adanya indikasi outliers yang signifikan pada sejumlah atribut mengharuskan adanya langkah penanganan outliers lebih lanjut.
-- Missing values -> ditemukannya missing values pada beberapa atribut, seperti pada atribut garage, build year, dan nearest school rank juga mengharuskan langkah penanganan missing values lanjutan. Adapun hasil yang didapatkan setelah pengamatan lebih lanjut tentang missing values tersebut juga telah memberikan gambaran langkah yang tepat untuk penanganannya berdasarkan atribut masing-masing, yaitu :
-    - Missing values atribut garage : Missing values ini bisa diasumsikan disebabkan oleh adanya beberapa properti yang tidak memiliki garasi (Missing Not At Random) -> Missing values dapat dianggap sebagai "0" atau tidak ada garasi. 
-    - Nearest School Distance : Korelasi yang lemah antara atribut ini terhadap harga menunjukan bahwa jarak sekolah terdekat dari properti mungkin bukan faktor yang dipertimbangkan oleh calon pembeli, hal ini bisa disebabkan oleh mungkin minimnya keluarga yang menempati beberapa suburbs sehingga sekolah terdekat bukanlah faktor yang penting, atau adanya kecenderungan calon pembeli untuk menyekolahkan anaknya di sekolah favorit yang sesuai dengan preferensi mereka (tidak bergantung pada dekat atau tidaknya sekolah tersebut dari properti/tempat tinggal mereka). Oleh karena itu, atribut ini akan dieliminasi dari data (didrop)
-    - Build Year : Missing values yang didapatkan dari kolom ini diasumsikan sebagai tidak adanya pendataan atau informasi tentang tahun pembangunan properti tersebut. Oleh karena itu, missing values ini juga diasumsikan sebagai nilai not at random. Namun, mengingat korelasinya yang sangat minim terhadap harga properti, penanganan missing values yang akan dilakukan terhadap atribut ini adalah dengan mengeliminasi kolom ini dari data (didrop.)                     ''')
+Additionally, other information observed about the dataset includes:
+- Uneven data distribution in several attributes.
+- Outliers: Significant indications of outliers in several attributes necessitate further outlier handling steps.
+- Missing Values: Identified missing values in attributes like garage, build year, and nearest school rank, requiring further handling. The observations about these missing values also offer guidance on the appropriate steps for handling them based on the respective attributes:
+    - Garage Attribute Missing Values: These missing values could be due to some properties not having a garage (Missing Not At Random) -> Missing values can be assumed as "0" or no garage.
+    - Nearest School Rank: These missing values could be due to some missing informations, due to its significant impact towards property prices, the nearest school rank will be imputed by using the KNN imputer
+    - Build Year: Missing values in this column are assumed to represent a lack of recorded or available information about the year of construction of the property. Given its extremely minimal correlation with property price, the approach to handle missing values in this attribute is by dropping the column from the data.
+''')
