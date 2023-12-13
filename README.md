@@ -6,6 +6,7 @@ The primary goal is to develop a predictive model that provides estimates for pr
 The insights from this project aim to facilitate informed decision-making in property investment and sales within the region.
 
 Dataset Source : [Kaggle](https://www.kaggle.com/datasets/syuzai/perth-house-prices)
+Deployment of the Prediction Model : [Huggingface](https://huggingface.co/spaces/farisariefm/Predicting-Perth-Property-Prices)
 
 ## Problem Statements
 In the property industry, accurate property valuation is crucial for intelligent decision-making. Therefore, this project aims to develop a property price prediction model that can estimate property values in Perth, Western Australia. The primary goal of this research is to enable stakeholders in the property industry to make more informed decisions for maximizing property investment value in the Perth region through accurate property price predictions.
